@@ -36,6 +36,15 @@ bin/$(APP_NAME): $(APP_SOURCES)
 		-ldflags "$(LDFLAGS)" \
 		-o $@ \
 
+build-arm64: bin/$(APP_NAME)_arm64
+bin/$(APP_NAME)_arm64: $(APP_SOURCES)
+	GOOS=linux \
+	GOARCH=arm64 \
+	go build \
+		-a -v \
+		-ldflags "$(LDFLAGS)" \
+		-o $@ \
+
 clean:
 	go clean -i ./...
 	rm -rf bin/*
